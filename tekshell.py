@@ -39,7 +39,7 @@ opc = input("\033[1;37;41mDigite sua opcao >>\033[0m")
 
 if opc == '1':
     cls()
-    from modulos import tek1
+    from modulos import tek2
     animated_marker()
 if opc == '2':
     os.system("exit")
