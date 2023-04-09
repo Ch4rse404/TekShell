@@ -1,4 +1,4 @@
-import os, progressbar
+import os, progressbar, time
 from colorama import init, Fore, Back, Style
 init(autoreset=True)
 
