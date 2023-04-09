@@ -3,9 +3,9 @@ from colorama import init, Fore, Back, Style
 init(autoreset=True)
 
 def animated_marker():
-    widgets = ['\033[94m[\033[97m#\033[94m]\033[97mLoading: ', progressbar.AnimatedMark>
+    widgets = ['\033[94m[\033[97m#\033[94m]\033[97mLoading: ', progressbar.AnimatedMarker()]
     bar = progressbar.ProgressBar(widgets=widgets).start()
-               
+
     for i in range(50):
         time.sleep(0.1)
         bar.update(i)
